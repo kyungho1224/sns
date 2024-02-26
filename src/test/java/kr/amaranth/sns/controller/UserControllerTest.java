@@ -3,6 +3,7 @@ package kr.amaranth.sns.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kr.amaranth.sns.controller.request.UserJoinRequest;
 import kr.amaranth.sns.controller.request.UserLoginRequest;
+import kr.amaranth.sns.exception.ErrorCode;
 import kr.amaranth.sns.exception.SnsApplicationException;
 import kr.amaranth.sns.model.User;
 import kr.amaranth.sns.service.UserService;
@@ -59,7 +60,7 @@ public class UserControllerTest {
         String userName = "userName";
         String password = "password";
 
-        when(userService.join(userName, password)).thenThrow(new SnsApplicationException());
+        when(userService.join(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
 
         // When & Then
         mockMvc.perform(post("/api/v1/users/join")
@@ -94,7 +95,7 @@ public class UserControllerTest {
         String userName = "userName";
         String password = "password";
 
-        when(userService.login(userName, password)).thenThrow(new SnsApplicationException());
+        when(userService.login(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
 
         // When & Then
         mockMvc.perform(post("/api/v1/users/login")
@@ -111,7 +112,7 @@ public class UserControllerTest {
         String userName = "userName";
         String password = "password";
 
-        when(userService.login(userName, password)).thenThrow(new SnsApplicationException());
+        when(userService.login(userName, password)).thenThrow(new SnsApplicationException(ErrorCode.DUPLICATED_USER_NAME, ""));
 
         // When & Then
         mockMvc.perform(post("/api/v1/users/login")
